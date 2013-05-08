@@ -1,0 +1,25 @@
+{
+    "name": "mongator/silex",
+    "type": "library",
+    "description": "Provider to use Mongator with Silex framework",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Máximo Cuadros", 
+            "email": "mcuadros@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.0",
+        "mongator/mongator": "dev-master"
+    },
+    "require-dev": {
+        "silex/silex": "1.0.*@dev"
+    },
+    "autoload": {
+        "psr-0": {
+            "Mongator\\Silex": "src/"
+        }
+    }
+}
