@@ -28,9 +28,14 @@ You can see [package information on Packagist.](https://packagist.org/packages/m
 
 Parameters
 ------------
+* ```mongator.connection.dsn``` (default 'mongodb://localhost:27017'): database connection string
+* ```mongator.connection.database```: the database name
+* ```mongator.connection.name``` (default 'default'): the name of the connection 
+* ```mongator.metadata.class```: The metadata factory class name 
+* ```mongator.logger``` (default null): instance of a logger class
+* ```mongator.cache.fields``` (default ArrayCache): instance of a mongator cache driver used in fields cache
+* ```mongator.cache.data``` (default ArrayCache): instance of a mongator cache driver used in data cache
 
-* mongator.metadata.class ... 
-* mongator.logger.enable ...
 
 Usage
 ------------

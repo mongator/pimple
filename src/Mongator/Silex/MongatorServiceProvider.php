@@ -13,47 +13,11 @@ use Silex\Application;
 use Silex\ServiceProviderInterface;
 
 use Mongator\Mongator;
+use Mongator\Connection;
 use Mongator\Cache\ArrayCache;
 
 class MongatorServiceProvider implements ServiceProviderInterface {
     public function register(Application $app) {
-        $app['mongator.logger'] = $app->share(function($app) {
-            if ( !$app['mongator.logger.enable'] ) return null;
-
-            $querys = 0;
-            return function($call) use ($app, &$querys) {
-                if ( $app->config('mongator')->slow && 
-                    $app->config('mongator')->slow > $call['time']
-                ) {
-                     return;
-                }
-
-                $caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 10)[8];
-                $msg = sprintf('[%d] %s->%s:%d %s@%s.%s in %d sec(s)', 
-                    ++$querys, 
-                    isset($caller['class']) ? $caller['class'] : 'NULL',
-                    $caller['function'], isset($caller['line']) ? $caller['line'] : 0,
-                    $call['type'], $call['database'], 
-                    isset($call['collection']) ? $call['collection'] : '[global]', $call['time']
-                );
-
-                $context = [];
-                if ( $app->config('mongator')->verbose > 0 ) $context = &$call;
-                if ( $app->config('mongator')->verbose > 1 ) {
-                    $msg .= PHP_EOL . var_export(
-                        debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS), 
-                        true
-                    );
-                }
-
-                if ( $app->config('mongator')->slow ) {
-                    $msg .= PHP_EOL . json_encode($call, JSON_PRETTY_PRINT);
-                    $context = [];
-                }
-
-                $app['monolog.mongator']->addDebug($msg, $context);
-            };
-        });
 
         $app['mongator'] = $app->share(function($app) {
             $mongator = new Mongator(
@@ -61,31 +25,55 @@ class MongatorServiceProvider implements ServiceProviderInterface {
                 $app['mongator.logger']            
             );
 
-            $mongator->setFieldCache($app['mongator.field.cache']);
-            $mongator->setDataCache($app['mongator.data.cache']);
-
+            $mongator->setFieldsCache($app['mongator.cache.fields']);
+            $mongator->setDataCache($app['mongator.cache.data']);
+            $mongator->setConnection($app['mongator.connection.name'], $app['mandango.connection']);    
             return $mongator;
         });
 
         $app['mongator.metadata'] = $app->share(function($app) {
             if ( !class_exists($app['mongator.metadata.class']) ) {
                 throw new \LogicException(
-                    'You must register "mongator.metadata.class" to you this provider'
+                    'You must register "mongator.metadata.class" to this provider'
                 );
             }
             return new $app['mongator.metadata.class']();
         });
 
-        $app['mongator.field.cache'] = $app->share(function($app) {
+
+        $app['mandango.connection'] = $app->share(function($app) {
+            if ( !$app['mongator.connection.dsn'] ) {
+                throw new \LogicException(
+                    'You must register "mongator.connection.dsn" to this provider'
+                );
+            }
+
+            if ( !$app['mongator.connection.database'] ) {
+                throw new \LogicException(
+                    'You must register "mongator.connection.database" to this provider'
+                );
+            }
+
+            return new Connection(
+                $app['mongator.connection.dsn', 
+                $app['mongator.connection.database']
+            );
+        });
+
+        $app['mongator.cache.fields'] = $app->share(function($app) {
             return new ArrayCache();
         });
 
-        $app['mongator.data.cache'] = $app->share(function($app) {
+        $app['mongator.cache.data'] = $app->share(function($app) {
             return new ArrayCache();
         });
 
         $app['mongator.metadata.class'] = null;
-        $app['mongator.logger.enable'] = false;
+        $app['mongator.logger'] = null;
+
+        $app['mongator.connection.name'] = 'default';
+        $app['mongator.connection.dsn'] = 'mongodb://localhost:27017';
+        $app['mongator.connection.database'] = null;
     }
 
     public function boot(Application $app) {
