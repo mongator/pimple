@@ -28,11 +28,11 @@ class MondatorServiceProviderTest extends TestCase {
     public function testRegister()
     {
         $app = new Application();
-        $app->register(new MondatorServiceProvider());
-
-        $app['mongator.metadata.class'] = 'Model\Mapping\Metadata';
-        $app['mongator.models.output'] = __DIR__ . '/../../../';
-        $app['mongator.extensions'] = array(new DocumentArrayAccess());
+        $app->register(new MondatorServiceProvider(), array(
+            'mongator.metadata.class' => 'Model\Mapping\Metadata',
+            'mongator.models.output' => __DIR__ . '/../../../',
+            'mongator.extensions' => array(new DocumentArrayAccess())
+        ));
 
         $this->assertInstanceOf('Mandango\Mondator\Mondator', $app['mondator']);
 
