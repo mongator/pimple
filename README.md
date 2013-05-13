@@ -35,7 +35,8 @@ Parameters
 * ```mongator.logger``` (default null): instance of a logger class
 * ```mongator.cache.fields``` (default ArrayCache): instance of a mongator cache driver used in fields cache
 * ```mongator.cache.data``` (default ArrayCache): instance of a mongator cache driver used in data cache
-
+* ```mongator.extensions``` (default Array()): array of extension instances 
+* ```mongator.models.output```: output path of the classes 
 
 Usage
 ------------
