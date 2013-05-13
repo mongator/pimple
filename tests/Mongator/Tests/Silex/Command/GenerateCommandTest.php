@@ -8,27 +8,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Mongator\Tests\Silex;
-use Cilex\Provider\Console\Adapter\Silex\ConsoleServiceProvider;
-use Silex\Application;
-
+namespace Mongator\Tests\Silex\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 use Mandango\Mondator\Mondator;
 use Mongator\Silex\Command\GenerateCommand;
 
-class GenerateCommandTest extends \PHPUnit_Framework_TestCase
+class GenerateCommandTest extends TestCase
 {
-
-    public function setUp() {
-        $app = new Application;
-        $app->register(new ConsoleServiceProvider(array(
-            'console.name' => 'MyApp',
-            'console.version' => '1.0.5',
-        )));
-                
-        $this->app = $app;
-    }
-
     public function createMondatorMock()
     {
         $mondator = $this->getMock('Mandango\Mondator\Mondator');
