@@ -16,6 +16,7 @@
         "symfony/console": "2.1.*"
     },
     "suggest": {
+        "ext-yaml": "Needed to reaad class configs in YAML files",
         "cilex/console-service-provider": "Needed if you want to use console commands, useful to generate the classes and indexes"
     },
     "require-dev": {
