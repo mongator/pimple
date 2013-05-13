@@ -75,6 +75,9 @@ class MongatorServiceProvider implements ServiceProviderInterface {
         $app['mongator.connection.name'] = 'default';
         $app['mongator.connection.dsn'] = 'mongodb://localhost:27017';
         $app['mongator.connection.database'] = null;
+
+        $app['mongator.classes.config'] = array();
+        $app['mongator.classes.yaml.path'] = null;
     }
 
     public function boot(Application $app) {

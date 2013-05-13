@@ -12,9 +12,14 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.0",
-        "mongator/mongator": "dev-master"
+        "mongator/mongator": "dev-master",
+        "symfony/console": "2.1.*"
+    },
+    "suggest": {
+        "cilex/console-service-provider": "Needed if you want to use console commands, useful to generate the classes and indexes"
     },
     "require-dev": {
+        "cilex/console-service-provider": "1.0.*@dev",
         "silex/silex": "1.0.*@dev"
     },
     "autoload": {
