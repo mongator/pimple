@@ -7,7 +7,7 @@ php:
 services: mongodb
 
 before_script:
-  - printf "\n" | pecl install -f mongo-${MONGO_VERSION}
+  - printf "\n" | pecl install -f mongo-1.3.6
   - composer --dev --prefer-source install
 
 script: phpunit
