@@ -34,9 +34,10 @@ class MongatorServiceProvider implements ServiceProviderInterface {
         $app['mongator.metadata'] = $app->share(function($app) {
             if ( !class_exists($app['mongator.metadata.class']) ) {
                 throw new \LogicException(
-                    'You must register "mongator.metadata.class" to this provider'
+                    'You must register a valid "mongator.metadata.class" to this provider, maybe you forget to generate your models?'
                 );
             }
+
             return new $app['mongator.metadata.class']();
         });
 
@@ -55,7 +56,7 @@ class MongatorServiceProvider implements ServiceProviderInterface {
             }
 
             return new Connection(
-                $app['mongator.connection.dsn', 
+                $app['mongator.connection.dsn'], 
                 $app['mongator.connection.database']
             );
         });
