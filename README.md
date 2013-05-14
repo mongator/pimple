@@ -1,7 +1,7 @@
 Mongator Silex Provider [![Build Status](https://travis-ci.org/mongator/silex.png?branch=master)](https://travis-ci.org/mongator/silex)
 ==============================
 
-Provider to use Mongator with Silex framework
+Provider for using Mongator with Silex framework
 
 
 Requirements
@@ -16,7 +16,7 @@ Installation
 ------------
 
 The recommended way to install Mongator/Silex is [through composer](http://getcomposer.org).
-You can see [package information on Packagist.](https://packagist.org/packages/mongator/silex)
+You can see [the package information on Packagist.](https://packagist.org/packages/mongator/silex)
 
 ```JSON
 {
@@ -42,7 +42,7 @@ Parameters
 * ```mongator.classes.yaml.path```: A valid dir with YAML definitions of the config classes
 
 
-Registering
+Registrating
 ------------
 
 ```PHP
@@ -68,17 +68,17 @@ $app->post('/article', function ($id) use ($app) {
 });
 ```
 
-** Remember, before use the models you must generate it. (You can use the command provided with this package.) **
+** Remember, before using the models you must generate them. (You can use the command provided with this package.) **
 
 Commands
 ------------
 With this package you can find three useful commands:
 
-* ```mongator:generate```: Process config classes and generate the files of the classes.
-* ```mongator:indexes```: Ensure the indexes of all repositories
+* ```mongator:generate```: Processes config classes and generates the files of the classes.
+* ```mongator:indexes```: Ensures the indexes of all repositories
 * ```mongator:fix```: Fixes all the missing references.
 
-You need the suggested package ```cilex/console-service-provider```to use it on you Silex setup.
+You need the suggested package ```cilex/console-service-provider```to use console commands on you Silex setup.
 
 Tests
 -----
