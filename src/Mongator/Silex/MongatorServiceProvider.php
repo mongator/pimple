@@ -27,7 +27,9 @@ class MongatorServiceProvider implements ServiceProviderInterface {
 
             $mongator->setFieldsCache($app['mongator.cache.fields']);
             $mongator->setDataCache($app['mongator.cache.data']);
-            $mongator->setConnection($app['mongator.connection.name'], $app['mandango.connection']);    
+            $mongator->setConnection($app['mongator.connection.name'], $app['mandango.connection']); 
+            $mongator->setDefaultConnectionName($app['mongator.connection.name']);
+   
             return $mongator;
         });
 
