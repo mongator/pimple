@@ -15,17 +15,18 @@ use Silex\ServiceProviderInterface;
 use Mandango\Mondator\Mondator;
 use Mongator\Extension\Core;
 
-
-class MondatorServiceProvider implements ServiceProviderInterface {
-    public function register(Application $app) {
+class MondatorServiceProvider implements ServiceProviderInterface
+{
+    public function register(Application $app)
+    {
         $app['mondator'] = $app->share(function($app) {
-            if ( !$app['mongator.models.output'] ) {
+            if (!$app['mongator.models.output']) {
                 throw new \LogicException(
                     'You must register "mongator.models.output" to this provider'
                 );
             }
 
-            if ( !$app['mongator.metadata.class'] ) {
+            if (!$app['mongator.metadata.class']) {
                 throw new \LogicException(
                     'You must register "mongator.metadata.class" to this provider'
                 );
@@ -41,7 +42,7 @@ class MondatorServiceProvider implements ServiceProviderInterface {
 
             $mondator = new Mondator();
             $mondator->setExtensions(array_merge(
-                $extensions, 
+                $extensions,
                 $app['mongator.extensions']
             ));
 
@@ -52,7 +53,7 @@ class MondatorServiceProvider implements ServiceProviderInterface {
         $app['mongator.models.output'] = null;
     }
 
-    public function boot(Application $app) {
-
+    public function boot(Application $app)
+    {
     }
 }

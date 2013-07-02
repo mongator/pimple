@@ -8,7 +8,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Mongator\Silex\Command;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -27,7 +26,7 @@ class FixReferencesCommand extends Command
     {
         $app = $this->getApplication()->getContainer();
 
-        $output->write('<info>Fixing missing References... </info>', false);        
+        $output->write('<info>Fixing missing References... </info>', false);
         $app['mongator']->fixAllMissingReferences();
 
         $output->writeln('<comment>Done</comment>');

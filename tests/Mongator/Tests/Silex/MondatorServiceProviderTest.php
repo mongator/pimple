@@ -15,9 +15,9 @@ use Mongator\Extension\Core;
 use Mongator\Extension\DocumentArrayAccess;
 
 use Silex\Application;
-use Symfony\Component\HttpFoundation\Request;
 
-class MondatorServiceProviderTest extends TestCase {
+class MondatorServiceProviderTest extends TestCase
+{
     public function setUp()
     {
         if (!class_exists('Mongator\Mongator')) {

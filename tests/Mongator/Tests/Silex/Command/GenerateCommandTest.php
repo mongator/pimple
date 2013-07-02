@@ -47,7 +47,7 @@ class GenerateCommandTest extends TestCase
                 'fields' => array('status' => 'string')
             )
         );
-        
+
         $this->app['mongator.classes.yaml.path'] = __DIR__ . '/../../../../Resources/';
         $this->createMondatorMock();
 

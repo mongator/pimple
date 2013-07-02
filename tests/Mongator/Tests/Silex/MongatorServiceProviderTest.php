@@ -12,9 +12,9 @@ namespace Mongator\Tests\Silex;
 use Mongator\Silex\MongatorServiceProvider;
 
 use Silex\Application;
-use Symfony\Component\HttpFoundation\Request;
 
-class MongatorServiceProviderTest extends TestCase {
+class MongatorServiceProviderTest extends TestCase
+{
     public function setUp()
     {
         if (!class_exists('Mongator\Mongator')) {

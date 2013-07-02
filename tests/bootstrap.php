@@ -3,9 +3,7 @@ $loader = require __DIR__.'/../vendor/autoload.php';
 $loader->add('Mongator\Tests', __DIR__);
 $loader->add('Model', __DIR__);
 
-
 use Mandango\Mondator\Mondator;
-use Mongator\Id\IdGeneratorContainer;
 
 $mondator = new Mondator();
 $mondator->setConfigClasses(array());

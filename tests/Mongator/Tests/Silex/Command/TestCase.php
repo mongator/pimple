@@ -14,13 +14,14 @@ use Silex\Application;
 
 class TestCase extends \PHPUnit_Framework_TestCase
 {
-    public function setUp() {
+    public function setUp()
+    {
         $app = new Application;
         $app->register(new ConsoleServiceProvider(array(
             'console.name' => 'MyApp',
             'console.version' => '1.0.5',
         )));
-                
+
         $this->app = $app;
     }
 }

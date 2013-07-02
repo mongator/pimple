@@ -16,20 +16,21 @@ use Mongator\Mongator;
 use Mongator\Connection;
 use Mongator\Cache\ArrayCache;
 
-class MongatorServiceProvider implements ServiceProviderInterface {
-    public function register(Application $app) {
-
+class MongatorServiceProvider implements ServiceProviderInterface
+{
+    public function register(Application $app)
+    {
         $app['mongator'] = $app->share(function($app) {
             $mongator = new Mongator(
-                $app['mongator.metadata'], 
-                $app['mongator.logger']            
+                $app['mongator.metadata'],
+                $app['mongator.logger']
             );
 
             $mongator->setFieldsCache($app['mongator.cache.fields']);
             $mongator->setDataCache($app['mongator.cache.data']);
-            $mongator->setConnection($app['mongator.connection.name'], $app['mandango.connection']); 
+            $mongator->setConnection($app['mongator.connection.name'], $app['mandango.connection']);
             $mongator->setDefaultConnectionName($app['mongator.connection.name']);
-   
+
             return $mongator;
         });
 
@@ -43,22 +44,21 @@ class MongatorServiceProvider implements ServiceProviderInterface {
             return new $app['mongator.metadata.class']();
         });
 
-
         $app['mandango.connection'] = $app->share(function($app) {
-            if ( !$app['mongator.connection.dsn'] ) {
+            if (!$app['mongator.connection.dsn']) {
                 throw new \LogicException(
                     'You must register "mongator.connection.dsn" to this provider'
                 );
             }
 
-            if ( !$app['mongator.connection.database'] ) {
+            if (!$app['mongator.connection.database']) {
                 throw new \LogicException(
                     'You must register "mongator.connection.database" to this provider'
                 );
             }
 
             return new Connection(
-                $app['mongator.connection.dsn'], 
+                $app['mongator.connection.dsn'],
                 $app['mongator.connection.database']
             );
         });
@@ -82,7 +82,7 @@ class MongatorServiceProvider implements ServiceProviderInterface {
         $app['mongator.classes.yaml.path'] = null;
     }
 
-    public function boot(Application $app) {
-
+    public function boot(Application $app)
+    {
     }
 }
