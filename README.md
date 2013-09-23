@@ -46,7 +46,7 @@ Registrating
 ------------
 
 ```PHP
-$app->register(new Mongator\Silex\MondatorServiceProvider())
+$app->register(new Mongator\Silex\MondatorServiceProvider());
 $app->register(new Mongator\Silex\MongatorServiceProvider(), array(
     'mongator.metadata.class' => 'Model\Mapping\Metadata',
     'mongator.models.output' => 'src/',
