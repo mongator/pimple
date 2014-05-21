@@ -2,7 +2,7 @@
 
 <phpunit bootstrap="tests/bootstrap.php" colors="true">
     <testsuites>
-        <testsuite name="Mongator/Silex Test Suite">
+        <testsuite name="Mongator/Pimple Test Suite">
             <directory>tests/Mongator/</directory>
         </testsuite>
     </testsuites>

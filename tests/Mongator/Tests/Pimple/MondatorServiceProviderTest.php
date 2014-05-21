@@ -8,13 +8,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Mongator\Tests\Silex;
-use Mongator\Silex\MondatorServiceProvider;
+namespace Mongator\Tests\Pimple;
+use Mongator\Pimple\MondatorServiceProvider;
 
 use Mongator\Extension\Core;
 use Mongator\Extension\DocumentArrayAccess;
 
-use Silex\Application;
+use Pimple\Container;
 
 class MondatorServiceProviderTest extends TestCase
 {
@@ -27,7 +27,7 @@ class MondatorServiceProviderTest extends TestCase
 
     public function testRegister()
     {
-        $app = new Application();
+        $app = new Container();
         $app->register(new MondatorServiceProvider(), array(
             'mongator.metadata.class' => 'Model\Mapping\Metadata',
             'mongator.models.output' => __DIR__ . '/../../../',
@@ -54,7 +54,7 @@ class MondatorServiceProviderTest extends TestCase
      */
     public function testRegisterMissingOutput()
     {
-        $app = new Application();
+        $app = new Container();
         $app->register(new MondatorServiceProvider());
         $app['mongator.models.output'] = __DIR__ . '/../../../';
         $app['mondator'];
@@ -65,7 +65,7 @@ class MondatorServiceProviderTest extends TestCase
      */
     public function testRegisterMissingMetadata()
     {
-        $app = new Application();
+        $app = new Container();
         $app->register(new MondatorServiceProvider());
         $app['mongator.metadata.class'] = 'Model\Mapping\Metadata';
         $app['mondator'];

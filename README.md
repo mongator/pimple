@@ -1,7 +1,7 @@
-Mongator Silex Provider [![Build Status](https://travis-ci.org/mongator/silex.png?branch=master)](https://travis-ci.org/mongator/silex)
+Mongator Pimple/Silex Provider [![Build Status](https://travis-ci.org/mongator/pimple.png?branch=master)](https://travis-ci.org/mongator/pimple)
 ==============================
 
-Provider for using Mongator with Silex framework
+Provider for using Mongator with Pimple/Silex framework
 
 
 Requirements
@@ -9,7 +9,7 @@ Requirements
 
 * PHP 5.3.x
 * Unix system
-* silex/silex
+* fabpot/pimple
 * mongator/mongator
 
 Installation
@@ -21,7 +21,7 @@ You can see [the package information on Packagist.](https://packagist.org/packag
 ```JSON
 {
     "require": {
-        "mongator/silex": "dev-master"
+        "mongator/pimple": "2.*"
     }
 }
 ```
@@ -46,8 +46,8 @@ Registrating
 ------------
 
 ```PHP
-$app->register(new Mongator\Silex\MondatorServiceProvider());
-$app->register(new Mongator\Silex\MongatorServiceProvider(), array(
+$app->register(new Mongator\Pimple\MondatorServiceProvider());
+$app->register(new Mongator\Pimple\MongatorServiceProvider(), array(
     'mongator.metadata.class' => 'Model\Mapping\Metadata',
     'mongator.models.output' => 'src/',
     'mongator.connection.database' => 'your_db'

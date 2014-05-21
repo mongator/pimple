@@ -1,7 +1,7 @@
 {
-    "name": "mongator/silex",
+    "name": "mongator/pimple",
     "type": "library",
-    "description": "Provider to use Mongator with Silex framework",
+    "description": "Provider to use Mongator with Pimple/Silex framework",
     "license": "MIT",
     "authors": [
         {
@@ -12,20 +12,19 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.0",
-        "mongator/mongator": "dev-master",
-        "symfony/console": "2.1.*"
-    },
-    "suggest": {
-        "ext-yaml": "Needed to reaad class configs in YAML files",
-        "cilex/console-service-provider": "Needed if you want to use console commands, useful to generate the classes and indexes"
+        "mongator/mongator": "1.*",
+        "symfony/console": "2.4.*",
+        "pimple/pimple": "2.*"
     },
     "require-dev": {
-        "cilex/console-service-provider": "1.0.*@dev",
-        "silex/silex": "1.0.*@dev"
+        "cilex/console-service-provider": "2.0.*@dev"
+    },
+    "suggest": {
+        "ext-yaml": "Needed to reaad class configs in YAML files"
     },
     "autoload": {
         "psr-0": {
-            "Mongator\\Silex": "src/"
+            "Mongator\\Pimple": "src/"
         }
     }
 }

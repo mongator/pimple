@@ -8,18 +8,18 @@
  * file that was distributed with this source code.
  */
 
-namespace Mongator\Silex;
-use Silex\Application;
-use Silex\ServiceProviderInterface;
+namespace Mongator\Pimple;
 
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 use Mandango\Mondator\Mondator;
 use Mongator\Extension\Core;
 
 class MondatorServiceProvider implements ServiceProviderInterface
 {
-    public function register(Application $app)
+    public function register(Container $app)
     {
-        $app['mondator'] = $app->share(function($app) {
+        $app['mondator'] = function($app) {
             if (!$app['mongator.models.output']) {
                 throw new \LogicException(
                     'You must register "mongator.models.output" to this provider'
@@ -47,13 +47,9 @@ class MondatorServiceProvider implements ServiceProviderInterface
             ));
 
             return $mondator;
-        });
+        };
 
         $app['mongator.extensions'] = array();
         $app['mongator.models.output'] = null;
-    }
-
-    public function boot(Application $app)
-    {
     }
 }

@@ -8,10 +8,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Mongator\Tests\Silex\Command;
+namespace Mongator\Tests\Pimple\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 use Mandango\Mondator\Mondator;
-use Mongator\Silex\Command\GenerateCommand;
+use Mongator\Pimple\Command\GenerateCommand;
 
 class GenerateCommandTest extends TestCase
 {

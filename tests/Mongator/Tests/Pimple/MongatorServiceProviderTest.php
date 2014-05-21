@@ -8,10 +8,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Mongator\Tests\Silex;
-use Mongator\Silex\MongatorServiceProvider;
+namespace Mongator\Tests\Pimple;
+use Mongator\Pimple\MongatorServiceProvider;
 
-use Silex\Application;
+use Pimple\Container;
 
 class MongatorServiceProviderTest extends TestCase
 {
@@ -24,7 +24,7 @@ class MongatorServiceProviderTest extends TestCase
 
     public function testRegister()
     {
-        $app = new Application();
+        $app = new Container();
         $app->register(new MongatorServiceProvider());
 
         $app['mongator.metadata.class'] = 'Model\Mapping\Metadata';
@@ -43,7 +43,7 @@ class MongatorServiceProviderTest extends TestCase
      */
     public function testRegisterMissingMetadata()
     {
-        $app = new Application();
+        $app = new Container();
         $app->register(new MongatorServiceProvider());
         $app['mongator.connection.database'] = 'mongator';
         $app['mongator'];
@@ -54,7 +54,7 @@ class MongatorServiceProviderTest extends TestCase
      */
     public function testRegisterInvalidMetadata()
     {
-        $app = new Application();
+        $app = new Container();
         $app->register(new MongatorServiceProvider());
         $app['mongator.connection.database'] = 'mongator';
         $app['mongator.metadata.class'] = 'Missing\Mapping\Metadata';
@@ -66,7 +66,7 @@ class MongatorServiceProviderTest extends TestCase
      */
     public function testRegisterMissingDatabase()
     {
-        $app = new Application();
+        $app = new Container();
         $app->register(new MongatorServiceProvider());
         $app['mongator.metadata.class'] = 'Model\Mapping\Metadata';
         $app['mongator'];
@@ -77,7 +77,7 @@ class MongatorServiceProviderTest extends TestCase
      */
     public function testRegisterMissingDSN()
     {
-        $app = new Application();
+        $app = new Container();
         $app->register(new MongatorServiceProvider());
         $app['mongator.connection.database'] = 'mongator';
         $app['mongator.metadata.class'] = 'Model\Mapping\Metadata';

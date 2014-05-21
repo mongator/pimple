@@ -8,19 +8,19 @@
  * file that was distributed with this source code.
  */
 
-namespace Mongator\Silex;
-use Silex\Application;
-use Silex\ServiceProviderInterface;
+namespace Mongator\Pimple;
 
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 use Mongator\Mongator;
 use Mongator\Connection;
 use Mongator\Cache\ArrayCache;
 
 class MongatorServiceProvider implements ServiceProviderInterface
 {
-    public function register(Application $app)
+    public function register(Container $app)
     {
-        $app['mongator'] = $app->share(function($app) {
+        $app['mongator'] = function($app) {
             $mongator = new Mongator(
                 $app['mongator.metadata'],
                 $app['mongator.logger']
@@ -32,9 +32,9 @@ class MongatorServiceProvider implements ServiceProviderInterface
             $mongator->setDefaultConnectionName($app['mongator.connection.name']);
 
             return $mongator;
-        });
+        };
 
-        $app['mongator.metadata'] = $app->share(function($app) {
+        $app['mongator.metadata'] = function($app) {
             if ( !class_exists($app['mongator.metadata.class']) ) {
                 throw new \LogicException(
                     'You must register a valid "mongator.metadata.class" to this provider, maybe you forget to generate your models?'
@@ -42,9 +42,9 @@ class MongatorServiceProvider implements ServiceProviderInterface
             }
 
             return new $app['mongator.metadata.class']();
-        });
+        };
 
-        $app['mandango.connection'] = $app->share(function($app) {
+        $app['mandango.connection'] = function($app) {
             if (!$app['mongator.connection.dsn']) {
                 throw new \LogicException(
                     'You must register "mongator.connection.dsn" to this provider'
@@ -61,15 +61,15 @@ class MongatorServiceProvider implements ServiceProviderInterface
                 $app['mongator.connection.dsn'],
                 $app['mongator.connection.database']
             );
-        });
+        };
 
-        $app['mongator.cache.fields'] = $app->share(function($app) {
+        $app['mongator.cache.fields'] = function($app) {
             return new ArrayCache();
-        });
+        };
 
-        $app['mongator.cache.data'] = $app->share(function($app) {
+        $app['mongator.cache.data'] = function($app) {
             return new ArrayCache();
-        });
+        };
 
         $app['mongator.metadata.class'] = null;
         $app['mongator.logger'] = null;
@@ -80,9 +80,5 @@ class MongatorServiceProvider implements ServiceProviderInterface
 
         $app['mongator.classes.config'] = array();
         $app['mongator.classes.yaml.path'] = null;
-    }
-
-    public function boot(Application $app)
-    {
     }
 }

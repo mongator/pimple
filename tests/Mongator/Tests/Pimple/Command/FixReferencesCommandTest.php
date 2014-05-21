@@ -8,12 +8,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Mongator\Tests\Silex\Command;
+namespace Mongator\Tests\Pimple\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 use Mongator\Mongator;
-use Mongator\Silex\Command\IndexesCommand;
+use Mongator\Pimple\Command\FixReferencesCommand;
 
-class IndexesCommandTest extends TestCase
+class FixReferencesCommandTest extends TestCase
 {
     public function createMongatorMock()
     {
@@ -21,7 +21,7 @@ class IndexesCommandTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $mongator->expects($this->once())->method('ensureAllIndexes');
+        $mongator->expects($this->once())->method('fixAllMissingReferences');
 
         $this->app['mongator'] = $mongator;
     }
@@ -30,12 +30,12 @@ class IndexesCommandTest extends TestCase
     {
         $this->createMongatorMock();
 
-        $this->app['console']->add(new IndexesCommand());
+        $this->app['console']->add(new FixReferencesCommand());
 
-        $command = $this->app['console']->find('mongator:indexes');
+        $command = $this->app['console']->find('mongator:fix');
         $commandTester = new CommandTester($command);
         $commandTester->execute(array('command' => $command->getName()));
 
-        $this->assertSame("Ensuring Indexes... Done\n", $commandTester->getDisplay());
+        $this->assertSame("Fixing missing References... Done\n", $commandTester->getDisplay());
     }
 }

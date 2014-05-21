@@ -8,19 +8,20 @@
  * file that was distributed with this source code.
  */
 
-namespace Mongator\Tests\Silex\Command;
-use Cilex\Provider\Console\Adapter\Silex\ConsoleServiceProvider;
-use Silex\Application;
+namespace Mongator\Tests\Pimple\Command;
+use Cilex\Provider\Console\ConsoleServiceProvider;
+use Pimple\Container;
 
 class TestCase extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $app = new Application;
-        $app->register(new ConsoleServiceProvider(array(
-            'console.name' => 'MyApp',
-            'console.version' => '1.0.5',
-        )));
+        $app = new Container;
+        $app->register(new ConsoleServiceProvider);
+
+        $app['console.name'] = 'MyApp';
+        $app['console.version'] = '1.0.5';
+
 
         $this->app = $app;
     }
